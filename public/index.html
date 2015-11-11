@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" ng-app="sentimentApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+      }
+    </style>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-cookies.js"></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div class="container" ng-controller="IndexController" ng-cloak>
+      <h1>Sentiment Tool</h1>
+      <hr/>
+      <div ng-show="isReady">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="alert alert-success" ng-show="tweet == null">No more tweets for you :-)</div>
+            {{ tweet.message }}
+            <div>
+              <strong>Topic: {{ tweet.q }}</strong>
+            </div>
+          </div>
+        </div>
+        <hr/>
+        <div class="row text-center" ng-show="tweet != null">
+          <div class="col-xs-12">
+            <a class="btn btn-lg btn-danger" ng-click="vote('negative', 2)"><i class="fa fa-thumbs-o-down"></i></a>
+            <a class="btn btn-sm btn-danger" ng-click="vote('negative', 1)"><i class="fa fa-thumbs-o-down"></i></a>
+            <a class="btn btn-xs btn-default" ng-click="vote('neutral', 1)" title="Neutral">Neutral</a>
+            <a class="btn btn-sm btn-success" ng-click="vote('positive', 1)"><i class="fa fa-thumbs-o-up"></i></a>
+            <a class="btn btn-lg btn-success" ng-click="vote('positive', 2)"><i class="fa fa-thumbs-o-up"></i></a>
+          </div>
+        </div>
+      </div>
+      <div ng-show="!isReady">
+        <div class="row text-center">
+          <div class="col-xs-12">
+            <div ng-show="alert != null" class="alert alert-danger" role="alert">{{ alert }}</div>
+            <div class="form-group">
+              <input type="text" ng-model="username" placeholder="Please enter your name"><br>
+              <br>
+              <a class="btn btn-default" ng-click="setUsername()">Start</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

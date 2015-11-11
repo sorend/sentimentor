@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" ng-app="sentimentApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+      }
+    </style>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-cookies.js"></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div class="container" ng-controller="AdminController" ng-cloak>
+      <h1>Sentiment Tool: Get from Twitter</h1>
+      <hr/>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="alert alert-success" ng-show="status != null">{{ status }}</div>
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" ng-model="q" placeholder="Query text for Twitter. Space is AND, comma is OR (e.g. apple iphone = apple AND iphone - apple, iphone = apple OR iphone" class="form-control">
+              <div class="input-group-btn">
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ language }} <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a ng-click="setLanguage('en','English')">English</a></li>
+                  <li><a ng-click="setLanguage('te','Telugu')">Telugu</a></li>
+                  <li><a ng-click="setLanguage('hi','Hindi')">Hindi</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <a class="btn btn-success" ng-click="start()">Start</a>
+            <a class="btn btn-danger" ng-click="stop()">Stop</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
