@@ -12,19 +12,26 @@ sentimentApp.controller("AdminController", function($scope, $http, $interval) {
         $scope.language = l;
     };
 
+    var stop;
+
+    var stopPolling = function() {
+        if (angular.isDefined(stop)) {
+            $interval.cancel(stop);
+            stop = undefined;
+        }
+        $scope.status = null;
+    };
+
     var status = function() {
         $http.get("/status").then(function(res){
             var d = res.data;
-            if (d.status == "running") {
+            if (d.status && d.status == "running")
                 $scope.status = "Receiving tweets for " + d.q + ", now received: " + d.counter;
-            }
-            else {
-                $scope.status = null;
-            }
+            else
+                stopPolling();
         });
     };
 
-    var stop;
     $scope.start = function() {
         $http.get("/start?q=" + encodeURIComponent($scope.q) + "&lang=" + $scope.lang).then(function(res){
             if (res.status != 200)
@@ -41,14 +48,9 @@ sentimentApp.controller("AdminController", function($scope, $http, $interval) {
 
     $scope.stop = function() {
         $http.get("/stop");
-        if (angular.isDefined(stop)) {
-            $interval.cancel(stop);
-            stop = undefined;
-            $scope.status = null;
-        }
+        stopPolling();
     };
 
-    
 });
 
 sentimentApp.controller("IndexController", function($scope, $http, $cookies) {
